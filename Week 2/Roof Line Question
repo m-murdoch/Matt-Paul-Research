@@ -1,0 +1,7 @@
+The Roofline Model has a flat portion and an oblique portion. A kernel is represented by a vertical line with an x marking exact performance on the line.
+
+Moving the x left or right represents a decrease or increase in operational intensity, floating point operations per byte, respectively. This is done with memory management optimization within the cache and pertains to cache size and prefetching. If the kernel is under the flat roof for this movement, moving left takes it closer to a memory bound problem, and right takes it further away from a memory bound problem. If the kernel is under the oblique roof for this movement, moving left represents potential to solve memory bound optimizations and move to more complicated memory related roofs, and moving right represents regressing in memory optimization to invite significance in repeating previous optimizations.
+
+Moving the x up represents increasing attainable floating point performance through computational optimization. This is done through floating point balance and the implementation of SSE intrinsics relating high level programming code to the compiler and with floating point balance. Under both the flat and the oblique part of the roof, moving upward can encounter both memory and computational ceilings; however, under the flat part, if the x is far from the ridge point it is more likely to reach a computational roof. Under the oblique part, far from the ridge point, it is more likely to experience a memory roof.
+
+ 
