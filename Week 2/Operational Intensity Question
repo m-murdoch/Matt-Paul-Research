@@ -1,0 +1,25 @@
+N = p.length – 1
+let m[1..n,1..n] and s[1..n-1,2..n] be new tables
+for i = 1 to n
+  m[i,i] = 0
+for l = 2 to n
+ 	for i = 1 to n  - l + 1
+ 		j = i + l – 1
+ 		m[i,j] = infinity
+ 		for k = I to j-1
+ 			q = m[i,k] + m[k+1,j] + Pi-1PkPj
+ 			if q<m[i,j]
+ 				m[i,j] = q
+ 				s[i,j] = k        
+return m and s
+
+For the matrix-chain multiplication problem, the matrix-chain order algorithm provides significant optimization potential 
+by minimuzing the number of individual multiplications to calculate the product. 
+The algorithm is shown above, and line 10 determines with operational intensity.  
+
+There are 6 accesses in this line, so for the operational intensity ratio, the denominator is 6 accesses. 
+The hardware determines the relationship between an access and a byte. 
+
+There are 4 floating point operations in this line, so the numerator is 4 flops. 
+
+Thus the operational intensity of matrix-chain order is 4 flops per 6 accesses. (4 flops/6 accesses).
