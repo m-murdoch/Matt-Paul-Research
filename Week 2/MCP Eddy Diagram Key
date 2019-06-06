@@ -1,0 +1,12 @@
+Eddy Diagrams for the matrix-chain product problem:
+
+-The horizontal axis represents the matrix-chain. 
+-A solid arc indicates a parentesization of the matrices within the arc. 
+-A dashed arc indicates the possibility, yet undecided, of a parenthesization of the matrices within the arc.
+-A dotted arc indicates that a parenthesization will not be made here. 
+-White space within the scope of the problem indicates uncertainty until more of the choice costs are memoized.
+-Grey shading indicates the smallest parenthesization possible. No arcs of any kind will cross this area. 
+-Cyan shading indicates that the problem is solved in this area. The decision has been made that this area will 
+be included in a parenthesization or not. 
+
+As the table of parenthesization costs is populated in a bottom up fashion, the certainty of the Eddy diagram increases.  
