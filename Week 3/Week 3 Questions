@@ -1,10 +1,13 @@
 General:
 • New Meeting time (Matt has classes starting next week)
 Alphaz:
+•	Will this language be used for the project?
+•	Could this be used to generate an eddy diagram?
 •	What is an affine formally? Is it a rule which must be maintained? How does it act as a parameter?
 •	What does it mean to declare A with i and j? Is this a way of formally indexing A?
-•	The point of reduce syntax? What does the syntax simplify?
+•	The point of the reduce syntax? What does the syntax simplify?
 •	The idea behind projections, why must a projection be stated? Is it not implicit from the assignment?
 •	What would xxx_verify.c look like?
 Caches:
+• What were the key ideas you were hoping we would get out of the reading? 
 • What is the “byte part of the address”? (pg 388)
