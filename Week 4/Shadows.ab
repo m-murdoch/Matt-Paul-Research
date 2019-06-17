@@ -1,0 +1,11 @@
+affine Shadows {N, T, D|N>0 && 0<=T<=90 && D>0}
+input 
+	float A {i | 0 <= i < N};
+output
+	bool S {i | 0 <= i < N};
+let
+	S[i] = case
+		{|i==0} : true;
+		{|0<i} : reduce(or, (i, j->i), A[j]>=A[i]+(D*(i-j)*T));
+	esac;
+.
