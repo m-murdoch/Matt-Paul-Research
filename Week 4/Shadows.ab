@@ -1,11 +1,17 @@
-affine Shadows {N, T, D|N>0 && 0<=T<=90 && D>0}
+//N = Size of the input Array
+//T = Theta or tan(Theta)
+//D = Distance between points in the array
+affine Shadows {N|N>0}
 input 
-	float A {i | 0 <= i < N};
+	float A {i|0 <= i < N};
+	float T;
+	float D;
 output
-	bool S {i | 0 <= i < N};
+	bool S {i| 0 <= i < N};
 let
 	S[i] = case
-		{|i==0} : true;
-		{|0<i} : reduce(or, (i, j->i), A[j]>=A[i]+(D*(i-j)*T));
+		{|i==0} : true; // The left-most point is always in the sun
+		{|i>0} : reduce(or, [j], A[j]>=A[i]+(D*(i-j)*T));
+		//{j|i>0 && j<i}: A[j]>=A[i]+(D*(i-j)*T);
 	esac;
 .
