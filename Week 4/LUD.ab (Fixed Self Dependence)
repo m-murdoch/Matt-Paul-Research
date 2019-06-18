@@ -1,0 +1,18 @@
+affine LUD {N|N>0}
+input
+   float A {i,j|1<=(i,j)<=N}; 
+output
+   float L {i,j|1<i<=N && 1<=j<i};
+   float U {i,j|1<=j<=N && 1<=i<=j};
+let
+   U[i,j] = case
+      {|1==i} : A[i,j];
+      {|1<i} : A[i,j] - reduce(+, [k], L[i,k]*U[k,j]);
+   esac;
+   L = case
+      {i,j|1==j} : A / (i,j->j,j)@U;
+      {i,j|1<j} : (A - reduce(+, (i,j,k->i,j), {|k<j}:(i,j,k->i,k)@L*(i,j,k->k,j)@U))/(i,j->j,j)@U;
+      // Because the sum is over k=1 to j-1 and is currently specified over i, a stipulation is 
+      // required that k<j to enumerate the sum over j-1.
+   esac;
+.
