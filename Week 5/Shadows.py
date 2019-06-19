@@ -4,7 +4,7 @@ def shadows(A, T):
     # we assume all points are in the sun to start
     s = [True]*len(A)
     for i in range(len(A)):
-        # shadow is end point of i's shadow
+        # shadow is the end point of i's shadow
         shadow = i+math.ceil(A[i]/T)
         if shadow > len(A):
             # avoids out of bounds errors
