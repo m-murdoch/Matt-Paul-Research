@@ -26,7 +26,7 @@ def main():
     for i in range(N):
         A[i] = float(input("A(" + str(i) +"): "))
     T = int(input("T: "))
-    print(shadows(A, 1))
+    print(shadows(A, T))
 
 if __name__ == '__main__':
    main()
