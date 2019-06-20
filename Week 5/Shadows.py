@@ -5,7 +5,7 @@ def shadows(A, T):
     s = [True]*len(A)
     for i in range(len(A)):
         # shadow is the end point of i's shadow
-        shadow = i+math.ceil(A[i]/T)
+        shadow = i+math.floor(A[i]/T)
         if shadow > len(A):
             # avoids out of bounds errors
             shadow = len(A)
