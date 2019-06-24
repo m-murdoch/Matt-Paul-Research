@@ -15,6 +15,9 @@ plain: $(OBJS)
 check: $(OBJS)
 	$(CC) Shadows-wrapper.c -o Shadows.check $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING
 
+check-rand: $(OBJS)
+	$(CC)  Shadows-wrapper.c -o Shadows.check-rand $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING -DRANDOM
+	
 no_prompt: $(OBJS)
 	$(CC)  Shadows-wrapper.c -o Shadows.no_prompt $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING -DNO_PROMPT 
 
@@ -33,9 +36,6 @@ verify-rand-timing: $(OBJS) Shadows_verify.o
 papi: $(OBJS)
 	$(CC)  Shadows-wrapper.c -o Shadows $(OBJS) $(CFLAGS) $(LIBRARIES) -DPAPI
 
-check-rand: $(OBJS)
-	$(CC)  Shadows-wrapper.c -o Shadows.check-rand $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING -DRANDOM
-	
 Shadows.o : Shadows.c
 	$(CC) Shadows.c -o Shadows.o $(CFLAGS) $(LIBRARIES) -c
 
@@ -43,4 +43,4 @@ Shadows_verify.o : Shadows_verify.c
 	$(CC) Shadows_verify.c -o Shadows_verify.o $(CFLAGS) $(LIBRARIES) -c
 
 clean:
-	rm -f *.o Shadows Shadows.check Shadows.verify Shadows.verify-rand
+	rm -f *.o Shadows Shadows.check Shadows.check-rand Shadows.no_prompt Shadows.verify Shadows.verify-rand Shadows.verify-timing Shadows.verify-rand-timing
