@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
 	//Input Initialization
 	{
 		#if defined (RANDOM)
-			#define S0(i) (A(i) = rand()%8); fprintf(stderr, "A(%d)= %f\n", i, A(i)); 
+			#define S0(i) (A(i) = rand()%8); fprintf(stderr, "A(%d)=%f\n", i, A(i)); 
 		#elif defined (CHECKING) || defined (VERIFY)
 			#ifdef NO_PROMPT
 				#define S0(i) scanf("%f", &A(i))
@@ -130,7 +130,7 @@ int main(int argc, char** argv) {
 	}
 	{
 		#if defined (RANDOM)
-			#define S0() (T = rand()%8); fprintf(stderr, "T= %f\n",T); 
+			#define S0() (T = rand()%8); fprintf(stderr, "T=%f\n",T); 
 		#elif defined (CHECKING) || defined (VERIFY)
 			#ifdef NO_PROMPT
 				#define S0() scanf("%f", &T)
