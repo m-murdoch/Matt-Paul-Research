@@ -24,6 +24,12 @@ verify-rand: $(OBJS) Shadows_verify.o
 papi: $(OBJS)
 	$(CC)  Shadows-wrapper.c -o Shadows $(OBJS) $(CFLAGS) $(LIBRARIES) -DPAPI
 
+timing: $(OBJS)
+	$(CC)  Shadows-wrapper.c -o Shadows.timing $(OBJS) $(CFLAGS) $(LIBRARIES) -DTIMING
+
+rand: $(OBJS)
+	$(CC)  Shadows-wrapper.c -o Shadows.random $(OBJS) $(CFLAGS) $(LIBRARIES) -DRANDOM
+	
 Shadows.o : Shadows.c
 	$(CC) Shadows.c -o Shadows.o $(CFLAGS) $(LIBRARIES) -c
 
