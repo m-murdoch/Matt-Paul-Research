@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
 	//Input Initialization
 	{
 		#if defined (RANDOM)
-			#define S0(i) (A(i) = rand()%8); //fprintf(stderr, "%f\n",A(i)); 
+			#define S0(i) (A(i) = rand()%8); fprintf(stderr, "A(%d)= %f\n", i, A(i)); 
 		#elif defined (CHECKING) || defined (VERIFY)
 			#ifdef NO_PROMPT
 				#define S0(i) scanf("%f", &A(i))
@@ -130,7 +130,7 @@ int main(int argc, char** argv) {
 	}
 	{
 		#if defined (RANDOM)
-			#define S0() (T = rand()%8); //fprintf(stderr, "%f\n",T); 
+			#define S0() (T = rand()%8); fprintf(stderr, "T= %f\n",T); 
 		#elif defined (CHECKING) || defined (VERIFY)
 			#ifdef NO_PROMPT
 				#define S0() scanf("%f", &T)
@@ -151,6 +151,7 @@ int main(int argc, char** argv) {
 	//Timing
 	struct timeval time;
 	double elapsed_time;
+    double elapsed_time_verify;
 	
 #ifdef PAPI
     int retval, EventSet = PAPI_NULL, native;
@@ -230,6 +231,7 @@ int main(int argc, char** argv) {
 	printf("Execution time : %lf sec.\n", elapsed_time);
 #endif	
 	#ifdef TIMING
+        //printf("timing is doing something?");
 		FILE * fp = fopen( "trace.dat","a+");
 		if (fp == NULL) {
 				printf("I couldn't open trace.dat for writing.\n");
@@ -243,20 +245,23 @@ int main(int argc, char** argv) {
 	#ifdef VERIFY
 		#ifdef TIMING
 			gettimeofday(&time, NULL);
-			elapsed_time = (((double) time.tv_sec) + ((double) time.tv_usec)/1000000);
+			elapsed_time_verify = (((double) time.tv_sec) + ((double) time.tv_usec)/1000000);
 		#endif
     	Shadows_verify(N, A, &T, S_verify);
     	#ifdef TIMING
     		gettimeofday(&time, NULL);
-			elapsed_time = (((double) time.tv_sec) + ((double) time.tv_usec)/1000000) - elapsed_time;
+			elapsed_time_verify = (((double) time.tv_sec) + ((double) time.tv_usec)/1000000) - elapsed_time_verify;
 			
 			FILE * fp_verify = fopen( "trace_verify.dat","a+");
 			if (fp == NULL) {
 					printf("I couldn't open trace_verify.dat for writing.\n");
 					exit(EXIT_FAILURE);
 			}
-			fprintf(fp, "%ld\t%lf\n",N,elapsed_time);
+			fprintf(fp, "%ld\t%lf\n",N,elapsed_time_verify);
 			fclose(fp_verify);
+            printf("Verify execution time : %lf sec.\n", elapsed_time_verify);
+            printf("Difference : %lf sec.\n", elapsed_time_verify - elapsed_time);
+            
 		#endif
 	#endif
     	
