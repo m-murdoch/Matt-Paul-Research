@@ -15,20 +15,26 @@ plain: $(OBJS)
 check: $(OBJS)
 	$(CC) Shadows-wrapper.c -o Shadows.check $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING
 
+no_prompt: $(OBJS)
+	$(CC)  Shadows-wrapper.c -o Shadows.no_prompt $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING -DNO_PROMPT 
+
 verify: $(OBJS) Shadows_verify.o
 	$(CC) Shadows-wrapper.c -o Shadows.verify $(OBJS) Shadows_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY
 
 verify-rand: $(OBJS) Shadows_verify.o
 	$(CC) Shadows-wrapper.c -o Shadows.verify-rand $(OBJS) Shadows_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY -DRANDOM
 
+verify-timing: $(OBJS) Shadows_verify.o
+	$(CC)  Shadows-wrapper.c -o Shadows.verify-timing $(OBJS) Shadows_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY -DTIMING
+
+verify-rand-timing: $(OBJS) Shadows_verify.o
+	$(CC)  Shadows-wrapper.c -o Shadows.verify-rand-timing $(OBJS) Shadows_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY -DTIMING -DRANDOM
+	
 papi: $(OBJS)
 	$(CC)  Shadows-wrapper.c -o Shadows $(OBJS) $(CFLAGS) $(LIBRARIES) -DPAPI
 
-timing: $(OBJS)
-	$(CC)  Shadows-wrapper.c -o Shadows.timing $(OBJS) $(CFLAGS) $(LIBRARIES) -DTIMING
-
-rand: $(OBJS)
-	$(CC)  Shadows-wrapper.c -o Shadows.random $(OBJS) $(CFLAGS) $(LIBRARIES) -DRANDOM
+check-rand: $(OBJS)
+	$(CC)  Shadows-wrapper.c -o Shadows.check-rand $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING -DRANDOM
 	
 Shadows.o : Shadows.c
 	$(CC) Shadows.c -o Shadows.o $(CFLAGS) $(LIBRARIES) -c
