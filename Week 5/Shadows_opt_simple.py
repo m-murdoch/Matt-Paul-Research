@@ -17,12 +17,10 @@ def shadows(A, T):
 
 def main():
     N = int(input("N: "))
-    A = [0] * N
+    A = []
     for i in range(N):
-        A[i] = float(input("A(" + str(i) +"): "))
+        A.append(float(input("A(" + str(i) +"): ")))
     T = int(input("T: "))
     print(shadows(A, T))
-    #print(shadows([1,2,3,4,1], 1))
 if __name__ == '__main__':
    main()
-
