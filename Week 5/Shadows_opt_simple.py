@@ -1,5 +1,3 @@
-import math
-
 def shadows(A, T):
     s = [None]*len(A)
     # examine all points in the array
