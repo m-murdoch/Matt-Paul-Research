@@ -1,0 +1,21 @@
+//N = Size of the input Array
+//T = tan(theta) * distance between points
+affine Shadows {N|N>=1}
+input
+float A {i|N>=i+1 && i>=0};
+float T {|};
+output
+bool S {i|N>=i+1 && i>=0};
+local
+float NR_S {i|N>=i+1 && i>=1}; // triangle shifted to the right
+let
+S[i] = case
+{|i==0} : 1;
+{|i>=1} : ((A[i] + ([i] * T)) > NR_S);
+esac;
+//NR_S[i] = reduce(max, (i,j->i), {|i>=j+1} : (A[j] + ([j] * T))); Line created by NormalizeReduction
+NR_S[i] = case
+	{|i==1} : (A[i] + ([i] * T));
+	{|i>1} : max(NR_S[i-1], A[i] + ([i] * T));
+esac;
+.
