@@ -15,7 +15,7 @@ S[i] = case
 esac;
 //NR_S[i] = reduce(max, (i,j->i), {|i>=j+1} : (A[j] + ([j] * T))); Line created by NormalizeReduction
 NR_S[i] = case
-	{|i==1} : (A[i] + ([i] * T));
-	{|i>1} : max(NR_S[i-1], A[i] + ([i] * T));
+	{|i==1} : (A[i-1] + ([i-1] * T));
+	{|i>1} : max(NR_S[i-1], A[i-1] + ([i-1] * T));
 esac;
 .
