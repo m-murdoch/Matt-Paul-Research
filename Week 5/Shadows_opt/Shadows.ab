@@ -11,7 +11,7 @@ float NR_S {i|N>=i+1 && i>=1}; // triangle shifted to the right
 let
 S[i] = case
 {|i==0} : 1;
-{|i>=1} : ((A[i] + ([i] * T)) > NR_S);
+{|i>=1} : ((A[i] + ([i] * T)) >= NR_S);
 esac;
 //NR_S[i] = reduce(max, (i,j->i), {|i>=j+1} : (A[j] + ([j] * T))); Line created by NormalizeReduction
 NR_S[i] = case
