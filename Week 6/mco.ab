@@ -1,0 +1,20 @@
+affine mco {N|N>0}
+input
+	int A {i|-1<=i-1<N};
+output
+	//Dynamic programming table of splits
+	int S {i,j|0<=i<N && i<=j<N};
+local
+	//Dynamic programming table of cost
+	int M {i,j|0<=i<N && i<=j<N};
+	float mij {i,j|0<=i<N && i<=j<N};
+	float m2 {i,j|0<=i<N && i<=j<N};
+let
+	M[i,j] = case // initialization of M
+		{|i == j}: 0;
+		{|i < j}: 999999; //{|2 <=l < N && 1<= i < N-l+1}: should populate line 8 okay
+	esac;
+	mij[i,j] = M[i,j];
+	m2[i,j] = {k|k <= i <= j}: M[i,k] + M[k+1,j] + A[i-1]*A[k]*A[j];
+	M[i,j] = {k|k <= i < j && mij < m2}: M[i,k] + M[k+1,j] + A[i-1]*A[k]*A[j];
+.
