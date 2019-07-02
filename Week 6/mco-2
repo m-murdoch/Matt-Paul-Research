@@ -1,0 +1,19 @@
+affine mco {N|N>0}
+input
+	int P {i|0<=i<=N};
+output
+	//Dynamic programming table of splits
+	//int S {i,j|1<=i<=N && i<=j-1<N};
+//local
+	//Dynamic programming table of cost
+	int M {i,j|1<=i<=N && i<=j<=N};
+local
+	int l {|2<=l<=N};
+let
+	M[i,j] = case // initialization of M
+		{|i == j}: 0; //Single matrices have no cost
+		{|i < j}: 9999999; //All unexamined combinations are set to max
+	esac;
+	//j = {|1<=i<=N-l+1}: [i]+[l]-1; // j is set to i+l-1, while i iterates up to l
+	M[i,j] = {l|1<=i<=N-l+1 && j == i+l-1}: reduce(min, [k], {|i<=k<j}: M[i,k]+M[k+1,j]+P[i-1]*P[k]*P[j]);
+.
