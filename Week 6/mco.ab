@@ -7,7 +7,7 @@ output
 local
 	//Dynamic programming table of cost
 	int M {i,j|0<=i<N && i<=j<N && i<=j<N};
-	float mij {i,j|0<=i<N && i<=j<N}; // (m[i,j] in mco)
+	float mij {i,j|0<=i<N && i<=j<N};
 	float m2 {i,j|0<=i<N && i<=j<N}; // (q in mco)
 let
 	M[i,j] = case // initialization of M
@@ -15,8 +15,6 @@ let
 		{|i < j}: 999999; //{|2 <=l < N && 1<= i < N-l+1}
 	esac;
 	mij[i,j] = M[i,j];
-	//m2[i,j] = {|k < i}: M[i,k] + M[k+1,j] + A[i-1]*A[k]*A[j];
 	m2[i,j] = reduce(min, [k], {|k<j}: M[i,k] + M[k+1,j] + A[i-1]*A[k]*A[j]);
-	//M[i,j] = {k|k <= i && mij > m2}: M[i,k] + M[k+1,j] + A[i-1]*A[k]*A[j];
 	M[i,j] = min(mij[i,j], m2[i,j]);
 .
