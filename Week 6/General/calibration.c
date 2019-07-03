@@ -3,7 +3,7 @@
 #include <sys/time.h>
 
 
-//Based on testing, times less then 1E(-5) are insignificant
+//Based on testing, times less then 1E(-5) seconds are insignificant
 int main(){
 	struct timeval time;
 	struct timeval time2;
