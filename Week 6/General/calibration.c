@@ -2,6 +2,8 @@
 #include <time.h>
 #include <sys/time.h>
 
+
+//Based on testing, times less then 1E(-5) are insignificant
 int main(){
 	struct timeval time;
 	struct timeval time2;
