@@ -1,0 +1,11 @@
+affine mco {N|N>0}
+input
+	int P {i|0<=i<=N};
+output
+	int M {i,j|1<=i<=N && i<=j<=N};
+let
+	M[i,j] = case
+		{|i == j}: 0; // A single matrix has no cost
+		{|i<j}: reduce(min, [k], {|i<=k<j}: M[i,k]+M[k+1,j]+P[i-1]*P[k]*P[j]);
+	esac;
+.
