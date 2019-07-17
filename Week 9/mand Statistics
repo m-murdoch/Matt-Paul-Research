@@ -1,0 +1,43 @@
+seq<-c(4.772202,4.803873,4.815359,4.729044,4.746701,4.751790,4.824996,4.746486,4.735600,4.729391,4.731655,4.763369)
+> sd(seq)
+[1] 0.03440099
+omp <- c(1.191737,1.108800,1.056915,1.123943,1.139827,1.133561,1.231444,1.150356,1.149327,1.125716,1.123103,1.113613)
+> sd(omp)
+[1] 0.04318158
+olm <- lm(x~omp)
+slm <- lm(x~seq)
+summary(slm)
+
+Call:
+lm(formula = x ~ seq)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.0384 -2.3238 -0.1219  2.1938  5.5397 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   233.98     140.51   1.665    0.127
+seq           -47.76      29.50  -1.619    0.137
+
+Residual standard error: 3.366 on 10 degrees of freedom
+Multiple R-squared:  0.2077,	Adjusted R-squared:  0.1285 
+F-statistic: 2.621 on 1 and 10 DF,  p-value: 0.1365
+
+summary(olm)
+
+Call:
+lm(formula = x ~ omp)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.5098 -2.7446 -0.0081  2.7489  5.5043 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   6.2959    30.0509   0.210    0.838
+omp           0.1794    26.4041   0.007    0.995
+
+Residual standard error: 3.782 on 10 degrees of freedom
+Multiple R-squared:  4.617e-06,	Adjusted R-squared:  -0.09999 
+F-statistic: 4.617e-05 on 1 and 10 DF,  p-value: 0.9947
