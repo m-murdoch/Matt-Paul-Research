@@ -7,6 +7,5 @@ do
 	do
 	    ../OSP.timing-rand $n
 	done
-    done
 done
 echo Testing *FINISHED*
