@@ -1,0 +1,5 @@
+Created four mappings (diagonal, reverse diagonal, triangle, reverse triangle)
+Changed wrapper
+  1. timing now uses clock() instead of getTimeOfDay() to avoid interference
+  2. records in .csv format for easier analysis
+Ran testing script on timing-rand (N=1000...5000...500) for all mappings
