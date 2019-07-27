@@ -48,21 +48,36 @@ setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)");
 generateScheduledCode(prog, system, outDir+"/map_8");
 
 ## Other mapping ideas based on 2D mapping::
-# Rows (S2) with k permuted to the outermost loop:
+# Rows (S2) with k permuted to the OUTER loop:
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j-i,j)", "(i,j->0,i,j)"); 
 #setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
 
-# Reverse Rows (S3) with k permuted to the outermost loop:
+# Reverse Rows (S3) with k permuted to the OUTER loop:
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j-i,N-j)", "(i,j->0,i,j)"); 
 #setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
 
-# Triangles (S4) with k permuted to the outermost loop:
+# Triangles (S4) with k permuted to the OUTER loop:
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j,N-i)", "(i,j->0,i,j)"); 
 #setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
 
-# Reverse Triangles (S5) with k permuted to the outermost loop:
+# Reverse Triangles (S5) with k permuted to the OUTER loop:
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,N-i,j)", "(i,j->0,i,j)"); 
 #setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
+
+# Rows (S2) with k permuted to the MIDDLE loop:
+# Covered above (map 6)
+
+# Reverse Rows (S3) with k permuted to the MIDDLE loop:
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,k,N-j)", "(i,j->i,0,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)");
+
+# Triangles (S4) with k permuted to the MIDDLE loop:
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,k,N-i)", "(i,j->i,0,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)");
+
+# Reverse Triangles (S5) with k permuted to the MIDDLE loop:
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,k,j)", "(i,j->i,0,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)");
 
 ## If you simply generate code with this mapping (try it),
 ## the code will have two arrays, one for C and one for Main.
