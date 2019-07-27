@@ -47,12 +47,29 @@ setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,N-i,k)", "(i,j->i,j,0)");
 setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)");
 generateScheduledCode(prog, system, outDir+"/map_8");
 
-## If you simply generate code with this this mapping (try it)
-##  the code will have two arrays, one for C and one for Main.
-##  This is wasteful and we should try to avoid it
+## Other mapping ideas besed on 2D mapping::
+# Rows (S2) with k permuted to the outermost loop:
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j-i,j)", "(i,j->0,i,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
+
+# Reverse Rows (S3) with k permuted to the outermost loop:
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j-i,N-j)", "(i,j->0,i,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
+
+# Triangles (S4) with k permuted to the outermost loop:
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j,N-i)", "(i,j->0,i,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
+
+# Reverse Triangles (S5) with k permuted to the outermost loop:
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,N-i,j)", "(i,j->0,i,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
+
+## If you simply generate code with this mapping (try it),
+## the code will have two arrays, one for C and one for Main.
+## This is wasteful and we should try to avoid it.
 
 #setMemorySpace(prog, system, "C", "C, Main");
-#generateScheduledCode(prog, system, outDir+"/map_7"); # Default maping, does NOT work. left to right -> top to bottom
+#generateScheduledCode(prog, system, outDir+"/map_7"); # Default maping, (i,j -> i,j), does NOT work.
 
 #AShow(prog, system);
 
