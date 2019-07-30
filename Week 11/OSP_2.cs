@@ -29,25 +29,25 @@ CheckProgram(prog);
 
 
 # Diagonals with k as INNER loop:
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j,k)", "(i,j->i,j,0)"); 
-#setSpaceTimeMap(prog, system, "C", "(i,j->i,j,j)"); 
-#generateScheduledCode(prog, system, outDir+"/diagonals_k_inner"); 
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j,k)", "(i,j->j-i,j,0)"); 
+#setSpaceTimeMap(prog, system, "C", "(i,j->j-i,j,j)"); 
+#generateScheduledCode(prog, system, outDir+"/diagonals_k_inner"); # WORKS
 
 # Columns with k as INNER loop:
-setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,N-i,k)", "(i,j->i,j,0)"); 
-setSpaceTimeMap(prog, system, "C", "(i,j->i,j,j)"); 
-generateScheduledCode(prog, system, outDir+"/columns_k_inner");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,N-i,k)", "(i,j->j,N-i,0)"); 
+#setSpaceTimeMap(prog, system, "C", "(i,j->j,N-i,j)"); 
+#generateScheduledCode(prog, system, outDir+"/columns_k_inner"); # WORKS
 
 
 # Diagonals with k permuted to the MIDDLE loop:
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,k,j)", "(i,j->i,0,j)"); 
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)");
-#generateScheduledCode(prog, system, outDir+"/diagonals_k_middle"); 
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j-k,j)", "(i,j->j-i,j,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,i-1,j)");
+#generateScheduledCode(prog, system, outDir+"/diagonals_k_middle");  # WORKS
 
 # Columns with k permuted to the MIDDLE loop:
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,k,N-i)", "(i,j->i,0,j)"); 
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)"); 
-#generateScheduledCode(prog, system, outDir+"/columns_k_middle");
+setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,N-i)", "(i,j->j,j,N-i)"); 
+setSpaceTimeMap(prog, system, "C",    "(i,j->j,i-1,N-i)"); 
+generateScheduledCode(prog, system, outDir+"/columns_k_middle"); # Might work, produces too many S0 duplicates to know
 
 
 # Diagonals with k permuted to the OUTER loop:
@@ -71,4 +71,3 @@ generateScheduledCode(prog, system, outDir+"/columns_k_inner");
 #generateWriteC(prog, system, outDir);
 #generateWrapper(prog, system, outDir);
 #generateMakefile(prog, system, outDir);
-
