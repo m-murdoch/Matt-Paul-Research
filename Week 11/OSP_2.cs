@@ -51,14 +51,14 @@ generateScheduledCode(prog, system, outDir+"/columns_k_middle"); # Might work, p
 
 
 # Diagonals with k permuted to the OUTER loop:
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j-i,j)", "(i,j->0,i,j)"); 
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
-#generateScheduledCode(prog, system, outDir+"/diagonals_k_outer");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j-i,j)", "(i,j->0,j-i,j)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i,j)");
+#generateScheduledCode(prog, system, outDir+"/diagonals_k_outer"); # Untested
 
 # Columns with k permuted to the OUTER loop:
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j,N-i)", "(i,j->0,i,j)"); 
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j)");
-#generateScheduledCode(prog, system, outDir+"/columns_k_outer");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->k,j,N-i)", "(i,j->0,j,N-i)"); 
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j,N-i)");
+#generateScheduledCode(prog, system, outDir+"/columns_k_outer");# Untested
 
 ## If you simply generate code with this this mapping (try it)
 ##  the code will have two arrays, one for C and one for Main.
