@@ -1,0 +1,6 @@
+This is the icc PATH:
+/s/parsons/l/sys/intel/bin
+
+type:
+PATH=/s/parsons/l/sys/intel/bin:$PATH
+to append to front of PATH
