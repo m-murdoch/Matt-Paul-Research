@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo $'The Grand Testing Script -=START=-\n'
+echo $'\n---------------- '$(date)' ----------------' >> grand_test.log
+
+## Prints all sub directories of ./mappings and stores their name in $map
+for map in $(ls ./mappings)
+do
+    echo $map': ' | tee -a grand_test.log
+    ## Cleans old files, copies over new OSP.c, and makes
+    (cd ./OSP && make new-map) > /dev/null
+    cp ./mappings/$map/OSP.c ./OSP/OSP.c
+    (cd ./OSP && make verify-rand) > /dev/null
+    ## Runs verify_test.sh(n={10..100..5}) on the current map, stops if any test fails
+    if((cd ./OSP/testing && verify_test.sh) | grep -l 'FAILED');
+        then
+            echo $'FAILED!\n' | tee -a grand_test.log
+        else
+            echo $'PASSED!\n' | tee -a grand_test.log
+    fi
+done
+
+
+echo $'\nThe Grand Testing Script -=FINISH=-'
+
