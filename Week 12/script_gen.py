@@ -6,7 +6,7 @@ def formatter(var):
                 if var[0] == "":
                     form[i] = "i"
                 else:
-                    form[i] = "N=i"
+                    form[i] = "N-i"
             elif var[1] == "j":
                 if var[0] == "":
                     form[i] = "j"
@@ -54,7 +54,7 @@ def main():
 
                             script.write('#setSpaceTimeMap(prog, system, "Main", "(i,j,k->')
                             script.write('{},{},{})", '.format(outerf[0],middlef[0],innerf[0]))
-                            script.write('"(i,j->{},{},{})";\n'.format(outerf[1],middlef[1],innerf[1]))
+                            script.write('"(i,j->{},{},{})");\n'.format(outerf[1],middlef[1],innerf[1]))
 
                             script.write('#setSpaceTimeMap(prog, system, "C",    "(i,j->{},{},{})");\n'.format(outerf[2], middlef[2], innerf[2]))
 
@@ -74,4 +74,3 @@ def main():
     script.close()
 if __name__ == '__main__':
    main()
-
