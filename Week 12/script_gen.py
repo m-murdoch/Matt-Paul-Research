@@ -21,8 +21,8 @@ def formatter(var):
             form[2] = "j"
         else:
             form[0] = "j-k"
-            form[1] = "j"
-            form[2] = "i-1"
+            form[1] = "0"
+            form[2] = "j-i+1"
 
     return form
 
