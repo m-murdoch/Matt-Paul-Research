@@ -1,9 +1,8 @@
 prog = ReadAlphabets("OSP.ab");
 system = "OSP";
-outDir = "./mappings/";
+outDir = "../mappings/";
 
 CheckProgram(prog);
-
 AShow(prog, system);
 
 ## Space time maps that "permute the k dimension"
@@ -20,14 +19,15 @@ CheckProgram(prog);
 
 ###### ROWS/COLUMNS ######
 ##---- 1 2 3 ----##
+
 # i,j,k
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,j,k)", "(i,j->i,j,i-1)");
 #setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j)");
 #generateScheduledCode(prog, system, outDir+"/i_j_k");
 
 # i,j,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,j,j-k)", "(i,j->i,j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,j,j-k)", "(i,j->i,j,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/i_j_-k");
 
 # i,-j,k
@@ -36,8 +36,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/i_-j_k");
 
 # i,-j,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,N-j,j-k)", "(i,j->i,N-j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i,N-j,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,N-j,j-k)", "(i,j->i,N-j,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->i,N-j,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/i_-j_-k");
 
 # -i,j,k
@@ -46,8 +46,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/-i_j_k");
 
 # -i,j,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,j,j-k)", "(i,j->N-i,j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,j,j-k)", "(i,j->N-i,j,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/-i_j_-k");
 
 # -i,-j,k
@@ -56,8 +56,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/-i_-j_k");
 
 # -i,-j,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,N-j,j-k)", "(i,j->N-i,N-j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,N-j,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,N-j,j-k)", "(i,j->N-i,N-j,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,N-j,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/-i_-j_-k");
 
 # i,k,j
@@ -66,8 +66,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/i_k_j");
 
 # i,-k,j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,j-k,j)", "(i,j->i,j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i,i-1,j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,j-k,j)", "(i,j->i,0,j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j-i+1,j)");
 #generateScheduledCode(prog, system, outDir+"/i_-k_j");
 
 # i,k,-j
@@ -76,8 +76,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/i_k_-j");
 
 # i,-k,-j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,j-k,N-j)", "(i,j->i,j,N-j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i,i-1,N-j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->i,j-k,N-j)", "(i,j->i,0,N-j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->i,j-i+1,N-j)");
 #generateScheduledCode(prog, system, outDir+"/i_-k_-j");
 
 # -i,k,j
@@ -86,8 +86,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/-i_k_j");
 
 # -i,-k,j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,j-k,j)", "(i,j->N-i,j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,i-1,j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,j-k,j)", "(i,j->N-i,0,j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j-i+1,j)");
 #generateScheduledCode(prog, system, outDir+"/-i_-k_j");
 
 # -i,k,-j
@@ -96,8 +96,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/-i_k_-j");
 
 # -i,-k,-j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,j-k,N-j)", "(i,j->N-i,j,N-j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,i-1,N-j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,j-k,N-j)", "(i,j->N-i,0,N-j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j-i+1,N-j)");
 #generateScheduledCode(prog, system, outDir+"/-i_-k_-j");
 
 # j,i,k
@@ -106,8 +106,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/j_i_k");
 
 # j,i,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,i,j-k)", "(i,j->j,i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,i,j-k)", "(i,j->j,i,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/j_i_-k");
 
 # -j,i,k
@@ -116,8 +116,8 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/-j_i_k");
 
 # -j,i,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,i,j-k)", "(i,j->N-j,i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,i,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,i,j-k)", "(i,j->N-j,i,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,i,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/-j_i_-k");
 
 # j,-i,k
@@ -125,10 +125,10 @@ CheckProgram(prog);
 #setSpaceTimeMap(prog, system, "C",    "(i,j->j,N-i,j)");
 #generateScheduledCode(prog, system, outDir+"/j_-i_k");
 
-# j,-i,-k (COLUMNS)
-setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,N-i,j-k)", "(i,j->j,N-i,j)");
-setSpaceTimeMap(prog, system, "C",    "(i,j->j,N-i,i-1)");
-generateScheduledCode(prog, system, outDir+"/j_-i_-k");
+# j,-i,-k
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,N-i,j-k)", "(i,j->j,N-i,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,N-i,j-i+1)");
+#generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 
 # -j,-i,k
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,N-i,k)", "(i,j->N-j,N-i,i-1)");
@@ -136,8 +136,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/-j_-i_k");
 
 # -j,-i,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,N-i,j-k)", "(i,j->N-j,N-i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,N-i,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,N-i,j-k)", "(i,j->N-j,N-i,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,N-i,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/-j_-i_-k");
 
 # j,k,i
@@ -146,8 +146,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/j_k_i");
 
 # j,-k,i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,i)", "(i,j->j,j,i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i-1,i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,i)", "(i,j->j,0,i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i+1,i)");
 #generateScheduledCode(prog, system, outDir+"/j_-k_i");
 
 # -j,k,i
@@ -156,8 +156,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/-j_k_i");
 
 # -j,-k,i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-k,i)", "(i,j->N-j,j,i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,i-1,i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-k,i)", "(i,j->N-j,0,i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,j-i+1,i)");
 #generateScheduledCode(prog, system, outDir+"/-j_-k_i");
 
 # j,k,-i
@@ -166,8 +166,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/j_k_-i");
 
 # j,-k,-i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,N-i)", "(i,j->j,j,N-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i-1,N-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,N-i)", "(i,j->j,0,N-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i+1,N-i)");
 #generateScheduledCode(prog, system, outDir+"/j_-k_-i");
 
 # -j,k,-i
@@ -176,8 +176,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/-j_k_-i");
 
 # -j,-k,-i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-k,N-i)", "(i,j->N-j,j,N-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,i-1,N-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-k,N-i)", "(i,j->N-j,0,N-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,j-i+1,N-i)");
 #generateScheduledCode(prog, system, outDir+"/-j_-k_-i");
 
 # k,i,j
@@ -186,8 +186,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_i_j");
 
 # -k,i,j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,i,j)", "(i,j->j,i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,i,j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,i,j)", "(i,j->0,i,j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,i,j)");
 #generateScheduledCode(prog, system, outDir+"/-k_i_j");
 
 # k,i,-j
@@ -196,8 +196,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_i_-j");
 
 # -k,i,-j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,i,N-j)", "(i,j->j,i,N-j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,i,N-j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,i,N-j)", "(i,j->0,i,N-j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,i,N-j)");
 #generateScheduledCode(prog, system, outDir+"/-k_i_-j");
 
 # k,-i,j
@@ -206,8 +206,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_-i_j");
 
 # -k,-i,j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-i,j)", "(i,j->j,N-i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,N-i,j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-i,j)", "(i,j->0,N-i,j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,N-i,j)");
 #generateScheduledCode(prog, system, outDir+"/-k_-i_j");
 
 # k,-i,-j
@@ -216,8 +216,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_-i_-j");
 
 # -k,-i,-j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-i,N-j)", "(i,j->j,N-i,N-j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,N-i,N-j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-i,N-j)", "(i,j->0,N-i,N-j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,N-i,N-j)");
 #generateScheduledCode(prog, system, outDir+"/-k_-i_-j");
 
 # k,j,i
@@ -226,8 +226,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_j_i");
 
 # -k,j,i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j,i)", "(i,j->j,j,i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,j,i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j,i)", "(i,j->0,j,i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,j,i)");
 #generateScheduledCode(prog, system, outDir+"/-k_j_i");
 
 # k,-j,i
@@ -236,8 +236,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_-j_i");
 
 # -k,-j,i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-j,i)", "(i,j->j,N-j,i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,N-j,i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-j,i)", "(i,j->0,N-j,i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,N-j,i)");
 #generateScheduledCode(prog, system, outDir+"/-k_-j_i");
 
 # k,j,-i
@@ -246,8 +246,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_j_-i");
 
 # -k,j,-i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j,N-i)", "(i,j->j,j,N-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,j,N-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j,N-i)", "(i,j->0,j,N-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,j,N-i)");
 #generateScheduledCode(prog, system, outDir+"/-k_j_-i");
 
 # k,-j,-i
@@ -256,8 +256,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_-j_-i");
 
 # -k,-j,-i
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-j,N-i)", "(i,j->j,N-j,N-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,N-j,N-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-j,N-i)", "(i,j->0,N-j,N-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,N-j,N-i)");
 #generateScheduledCode(prog, system, outDir+"/-k_-j_-i");
 
 # d,j,k
@@ -266,8 +266,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/d_j_k");
 
 # d,j,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j,j-k)", "(i,j->j-i,j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,j,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j,j-k)", "(i,j->j-i,j,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,j,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/d_j_-k");
 
 # d,-j,k
@@ -276,8 +276,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/d_-j_k");
 
 # d,-j,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,N-j,j-k)", "(i,j->j-i,N-j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,N-j,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,N-j,j-k)", "(i,j->j-i,N-j,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,N-j,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/d_-j_-k");
 
 # d,k,j
@@ -286,8 +286,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/d_k_j");
 
 # d,-k,j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j-k,j)", "(i,j->j-i,j,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,i-1,j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j-k,j)", "(i,j->j-i,0,j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,j-i+1,j)");
 #generateScheduledCode(prog, system, outDir+"/d_-k_j");
 
 # d,k,-j
@@ -296,8 +296,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/d_k_-j");
 
 # d,-k,-j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j-k,N-j)", "(i,j->j-i,j,N-j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,i-1,N-j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j-k,N-j)", "(i,j->j-i,0,N-j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,j-i+1,N-j)");
 #generateScheduledCode(prog, system, outDir+"/d_-k_-j");
 
 # j,d,k
@@ -306,8 +306,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/j_d_k");
 
 # j,d,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-i,j-k)", "(i,j->j,j-i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-i,j-k)", "(i,j->j,j-i,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/j_d_-k");
 
 # -j,d,k
@@ -316,8 +316,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/-j_d_k");
 
 # -j,d,-k
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-i,j-k)", "(i,j->N-j,j-i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,j-i,i-1)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-i,j-k)", "(i,j->N-j,j-i,0)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,j-i,j-i+1)");
 #generateScheduledCode(prog, system, outDir+"/-j_d_-k");
 
 # j,k,d
@@ -326,8 +326,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/j_k_d");
 
 # j,-k,d
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,j-i)", "(i,j->j,j,j-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->j,i-1,j-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,j-i)", "(i,j->j,0,j-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i+1,j-i)");
 #generateScheduledCode(prog, system, outDir+"/j_-k_d");
 
 # -j,k,d
@@ -336,8 +336,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/-j_k_d");
 
 # -j,-k,d
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-k,j-i)", "(i,j->N-j,j,j-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,i-1,j-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-j,j-k,j-i)", "(i,j->N-j,0,j-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->N-j,j-i+1,j-i)");
 #generateScheduledCode(prog, system, outDir+"/-j_-k_d");
 
 # k,d,j
@@ -346,8 +346,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_d_j");
 
 # -k,d,j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j-i,j)", "(i,j->j,j-i,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,j-i,j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j-i,j)", "(i,j->0,j-i,j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,j-i,j)");
 #generateScheduledCode(prog, system, outDir+"/-k_d_j");
 
 # k,d,-j
@@ -356,8 +356,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_d_-j");
 
 # -k,d,-j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j-i,N-j)", "(i,j->j,j-i,N-j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,j-i,N-j)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j-i,N-j)", "(i,j->0,j-i,N-j)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,j-i,N-j)");
 #generateScheduledCode(prog, system, outDir+"/-k_d_-j");
 
 # k,j,d
@@ -366,8 +366,8 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_j_d");
 
 # -k,j,d
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j,j-i)", "(i,j->j,j,j-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,j,j-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,j,j-i)", "(i,j->0,j,j-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,j,j-i)");
 #generateScheduledCode(prog, system, outDir+"/-k_j_d");
 
 # k,-j,d
@@ -376,15 +376,19 @@ generateScheduledCode(prog, system, outDir+"/j_-i_-k");
 #generateScheduledCode(prog, system, outDir+"/k_-j_d");
 
 # -k,-j,d
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-j,j-i)", "(i,j->j,N-j,j-i)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->i-1,N-j,j-i)");
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-k,N-j,j-i)", "(i,j->0,N-j,j-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i+1,N-j,j-i)");
 #generateScheduledCode(prog, system, outDir+"/-k_-j_d");
 
+##################### Memory Consolidation #####################
 
+#setMemorySpace(prog, system, "C", "C, Main");
+#generateScheduledCode(prog, system, outDir+"/memSpace"); # Default maping, (i,j -> i,j), does NOT work.
 
-
+#AShow(prog, system);
 
 #generateVerificationCode(prog, system, outDir);
 #generateWriteC(prog, system, outDir);
 #generateWrapper(prog, system, outDir);
 #generateMakefile(prog, system, outDir);
+#generateScheduledCode(prog, system, outDir);
