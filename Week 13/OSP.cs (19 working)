@@ -39,7 +39,10 @@ CheckProgram(prog);
 #setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j-1,j+N)");
 #generateScheduledCode(prog, system, outDir+"/-i_k_-j");
 # For this one, the mapping for "C" needed time stamps to populate in the +i direction.
-# This is so that the diagonal will be populated first.
+# This is so that the diagonal will be populated first. The population order was
+# also made more strict with the middle loop remaining the same between the last 
+# iteration of 'k' and population and extending the inner most loop to support
+# this ordering. 
 
 # j,-i,k
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,N-i,k)", "(i,j->j,N-i,i-1)");
