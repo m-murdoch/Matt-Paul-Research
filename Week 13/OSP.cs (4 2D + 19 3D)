@@ -5,7 +5,25 @@ outDir = "../mappings/";
 CheckProgram(prog);
 AShow(prog, system);
 
-## Space time maps that "permute the k dimension"
+#### Original 2D mappings for comparison ####
+
+# d,j
+#setSpaceTimeMap(prog, system, "C", "(i,j->j-i,j)");
+#generateScheduledCode(prog, system, outDir+"/d_j");
+
+# d,-j
+#setSpaceTimeMap(prog, system, "C", "(i,j->j-i,N-j)");
+#generateScheduledCode(prog, system, outDir+"/d_-j");
+
+# j,-i
+#setSpaceTimeMap(prog, system, "C", "(i,j->j,N-i)");
+#generateScheduledCode(prog, system, outDir+"/j_-i");
+
+# -i,j
+setSpaceTimeMap(prog, system, "C", "(i,j->N-i,j)");
+generateScheduledCode(prog, system, outDir+"/-i_j");
+
+#### Space time maps that "permute the k dimension" ####
 
 ## Now for the  time maps that "permute the k dimension"
 ## For this we first do some preprocessing that "isolates"
