@@ -34,7 +34,7 @@ if __name__ == "__main__":
             build[l] /= 5
             avg[l].append(build[l])
             if np.std(sd[l]) > 2: # data may not be tightly grouped if this flag goes off.
-                print("Outlier found in " , a[l] , ", problem size: " , (500*i + 500))
+                print("Outlier found in " , a[l] , ", problem size: " , (500*i + 1000))
         
     avg = np.array(avg, dtype = float)
     #print("A: ", avg)
