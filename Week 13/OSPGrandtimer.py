@@ -58,8 +58,8 @@ if __name__ == "__main__":
     for i in range(N):
         Orders[i] = np.polyfit(np.log(x), np.log(avg[i]), 1)
         Orders1[i] = np.polyfit(np.log(x), np.log(avg1[i]), 1)
-        print("Order " + a[i] + "  :  ", Orders[i])
-        print("Tight Order " + a[i] + "  :  ", Orders1[i])
+        print(a[i] + "  :  ", Orders[i])
+        #print("Tight Order " + a[i] + "  :  ", Orders1[i])
         if Orders[i][0] != Orders1[i][0] or Orders[i][1] != Orders1[i][1]:
             print("Tightening order changed result.")
         plt.plot(x, avg[i], color = colors[i], label = a[i]) # raw exponential visualization
@@ -69,10 +69,32 @@ if __name__ == "__main__":
     plt.ylabel("Average Time (Seconds)")
     plt.show()
 
+    t1 = [["aa",0,0] for i in range(N)]
+    for i in range(N):
+        t1[i][0] = a[i]
+        t1[i][1] = Orders[i][0]
+        t1[i][2] = Orders[i][1]
+    t1 = sorted(t1, key = lambda x: x[1])
+    t1 = np.array(t1)
+    np.vstack(t1)
+    print("Mapping         Log Slope              Log Intercept")
+    print(t1)
+
     for i in range(N):
         plt.loglog(x, avg[i], color = colors[i], label = a[i]) # linear visualization 
     plt.legend()
     plt.title("Space Time Mapping Statistics (Log Scaling)")
+    plt.xlabel("Log Problem Size (N)")
+    plt.ylabel("Log Average Time (Seconds)")
+    plt.show()
+
+    plt.loglog(x, avg[7], color = "blue", label = a[7] + "  3.08")
+    plt.loglog(x, avg[18], color = "red", label = a[18] + "  3.05")
+    plt.loglog(x, avg[14], color = "green", label = a[14])
+    plt.loglog(x, avg[11], color = "purple", label = a[11] + "  4.32")
+    plt.loglog(x, avg[20], color = "gold", label = a[20])
+    plt.legend()
+    plt.title("Space Time Mapping Statistics (Cleaner) (Log Scaling)")
     plt.xlabel("Log Problem Size (N)")
     plt.ylabel("Log Average Time (Seconds)")
     plt.show()
