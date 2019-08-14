@@ -1,0 +1,55 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+Begin optimization report for: OSP(long, int *, int **)
+
+    Report from: Loop nest & Vector optimizations [loop, vec]
+
+
+LOOP BEGIN at OSP.c(130,3)
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #25439: unrolled with remainder by 2  
+LOOP END
+
+LOOP BEGIN at OSP.c(130,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at OSP.c(134,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between C[c1+c2][c3] (156:5) and C[c1+c2][c2] (138:7)
+
+   LOOP BEGIN at OSP.c(136,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between C[c1+c2][c3] (156:5) and C[c1+c2][c2] (138:7)
+
+      LOOP BEGIN at OSP.c(154,3) inlined into OSP.c(138,7)
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #25439: unrolled with remainder by 8  
+      LOOP END
+
+      LOOP BEGIN at OSP.c(154,3) inlined into OSP.c(138,7)
+      <Remainder>
+         remark #25436: completely unrolled by 7  
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: reduce_OSP_C_1(long, int, int, int **, int *)
+
+    Report from: Loop nest & Vector optimizations [loop, vec]
+
+
+LOOP BEGIN at OSP.c(154,3)
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #25439: unrolled with remainder by 8  
+LOOP END
+
+LOOP BEGIN at OSP.c(154,3)
+<Remainder>
+   remark #25436: completely unrolled by 7  
+LOOP END
+===========================================================================

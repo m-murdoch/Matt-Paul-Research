@@ -1,0 +1,45 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+Begin optimization report for: OSP(long, int *, int **)
+
+    Report from: Loop nest & Vector optimizations [loop, vec]
+
+
+LOOP BEGIN at OSP.c(127,2)
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #25439: unrolled with remainder by 8  
+LOOP END
+
+LOOP BEGIN at OSP.c(127,2)
+<Remainder>
+   remark #25436: completely unrolled by 7  
+LOOP END
+
+LOOP BEGIN at OSP.c(146,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between C[c1][c1] (152:5) and C[1][c1] (165:5)
+
+   LOOP BEGIN at OSP.c(148,5)
+      remark #25045: Fused Loops: ( 148 153 )
+
+      remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+   LOOP END
+
+   LOOP BEGIN at OSP.c(153,5)
+      remark #25046: Loop lost in Fusion 
+   LOOP END
+
+   LOOP BEGIN at OSP.c(157,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed FLOW dependence between C[c1-c2+1][c1] (159:7) and C[c1-c3][c1-c2] (162:9)
+
+      LOOP BEGIN at OSP.c(160,7)
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================

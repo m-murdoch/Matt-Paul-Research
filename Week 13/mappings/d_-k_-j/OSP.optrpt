@@ -1,0 +1,61 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+Begin optimization report for: OSP(long, int *, int **)
+
+    Report from: Loop nest & Vector optimizations [loop, vec]
+
+
+LOOP BEGIN at OSP.c(127,2)
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #25439: unrolled with remainder by 8  
+LOOP END
+
+LOOP BEGIN at OSP.c(127,2)
+<Remainder>
+   remark #25436: completely unrolled by 7  
+LOOP END
+
+LOOP BEGIN at OSP.c(141,3)
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #25439: unrolled with remainder by 2  
+LOOP END
+
+LOOP BEGIN at OSP.c(141,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at OSP.c(145,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between Main[N-c1-c3][c3+N] (149:7) and Main[N-c1-c3][c3+N] (160:7)
+
+   LOOP BEGIN at OSP.c(147,5)
+      remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #25439: unrolled with remainder by 2  
+   LOOP END
+
+   LOOP BEGIN at OSP.c(147,5)
+   <Remainder>
+   LOOP END
+
+   LOOP BEGIN at OSP.c(151,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[N-c1-c3][c3+N] (155:9) and Main[N-c1-c3][c3+N] (155:9)
+
+      LOOP BEGIN at OSP.c(153,7)
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at OSP.c(158,5)
+      remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #25439: unrolled with remainder by 2  
+   LOOP END
+
+   LOOP BEGIN at OSP.c(158,5)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
