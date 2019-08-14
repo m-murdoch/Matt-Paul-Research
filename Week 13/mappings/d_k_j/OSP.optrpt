@@ -2,6 +2,9 @@ Intel(R) Advisor can now assist with vectorization and show optimization
   report messages with your source code.
 See "https://software.intel.com/en-us/intel-advisor-xe" for details.
 
+Intel(R) C Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 19.0.3.199 Build 20190206
+
+Compiler options: -I/usr/include/malloc/ -o OSP.o -O3 -std=c99 -qopt-report-phase=vec,loop -qopt-report=5 -lm -c
 
 Begin optimization report for: OSP(long, int *, int **)
 
@@ -9,7 +12,19 @@ Begin optimization report for: OSP(long, int *, int **)
 
 
 LOOP BEGIN at OSP.c(127,2)
+   remark #15389: vectorization support: reference Main[mz1] has unaligned access   [ OSP.c(128,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.070
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 7 
+   remark #15477: vector cost: 12.500 
+   remark #15478: estimated potential speedup: 0.560 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector cost summary ---
    remark #25439: unrolled with remainder by 8  
 LOOP END
 
@@ -19,7 +34,21 @@ LOOP BEGIN at OSP.c(127,2)
 LOOP END
 
 LOOP BEGIN at OSP.c(141,3)
+   remark #15389: vectorization support: reference C[c2] has unaligned access   [ OSP.c(143,5) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15329: vectorization support: indirect store was emulated for the variable <C[c2][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(143,5) ]
+   remark #15305: vectorization support: vector length 2
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.023
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15463: unmasked indexed (or scatter) stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 16.000 
+   remark #15478: estimated potential speedup: 0.180 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector cost summary ---
    remark #25439: unrolled with remainder by 2  
 LOOP END
 
@@ -28,33 +57,106 @@ LOOP BEGIN at OSP.c(141,3)
 LOOP END
 
 LOOP BEGIN at OSP.c(145,3)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between Main[1][c1+1] (147:5) and Main[c1+N][N] (173:5)
+   remark #15346: vector dependence: assumed ANTI dependence between Main[c1+N][N] (173:5) and Main[1][c1+1] (147:5)
 
    LOOP BEGIN at OSP.c(148,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed OUTPUT dependence between Main[c1+c3][c3] (152:9) and Main[c2+1][c1+c2+1] (154:7)
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[c2+1][c1+c2+1] (154:7) and Main[c1+c3][c3] (152:9)
 
       LOOP BEGIN at OSP.c(150,7)
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(152,9) ]
+         remark #15389: vectorization support: reference C[c1+c3] has unaligned access   [ OSP.c(152,9) ]
+         remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(152,9) ]
+         remark #15389: vectorization support: reference M[c1+c3-1] has unaligned access   [ OSP.c(152,9) ]
+         remark #15389: vectorization support: reference M[c3] has unaligned access   [ OSP.c(152,9) ]
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(152,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(152,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[c1+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(152,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(152,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.164
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 21 
+         remark #15477: vector cost: 58.000 
+         remark #15478: estimated potential speedup: 0.360 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(156,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between C[c1+c2][c2] (158:7) and C[c1+c3][c2] (161:9)
+      remark #15346: vector dependence: assumed ANTI dependence between C[c1+c3][c2] (161:9) and C[c1+c2][c2] (158:7)
 
       LOOP BEGIN at OSP.c(159,7)
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(161,9) ]
+         remark #15389: vectorization support: reference C[c1+c3] has unaligned access   [ OSP.c(161,9) ]
+         remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(161,9) ]
+         remark #15389: vectorization support: reference M[c1+c3-1] has unaligned access   [ OSP.c(161,9) ]
+         remark #15389: vectorization support: reference M[c3] has unaligned access   [ OSP.c(161,9) ]
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(161,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[c1+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(161,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.164
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 21 
+         remark #15477: vector cost: 58.000 
+         remark #15478: estimated potential speedup: 0.360 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(165,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between C[c1+c2][c2] (167:7) and C[c1+c3][c2] (170:9)
+      remark #15346: vector dependence: assumed ANTI dependence between C[c1+c3][c2] (170:9) and C[c1+c2][c2] (167:7)
 
       LOOP BEGIN at OSP.c(168,7)
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(170,9) ]
+         remark #15389: vectorization support: reference C[c1+c3] has unaligned access   [ OSP.c(170,9) ]
+         remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(170,9) ]
+         remark #15389: vectorization support: reference M[c1+c3-1] has unaligned access   [ OSP.c(170,9) ]
+         remark #15389: vectorization support: reference M[c3] has unaligned access   [ OSP.c(170,9) ]
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(170,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(170,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[c1+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(170,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(170,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.164
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 21 
+         remark #15477: vector cost: 58.000 
+         remark #15478: estimated potential speedup: 0.360 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 LOOP END
@@ -64,10 +166,34 @@ LOOP BEGIN at OSP.c(178,5)
 
    LOOP BEGIN at OSP.c(180,7)
    <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
    LOOP END
 
    LOOP BEGIN at OSP.c(180,7)
+      remark #15388: vectorization support: reference Main[(N-1)/2+c3] has aligned access   [ OSP.c(182,9) ]
+      remark #15389: vectorization support: reference C[(N-1)/2+c3] has unaligned access   [ OSP.c(182,9) ]
+      remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(182,9) ]
+      remark #15389: vectorization support: reference M[(N-1)/2+c3-1] has unaligned access   [ OSP.c(182,9) ]
+      remark #15388: vectorization support: reference M[c3] has aligned access   [ OSP.c(182,9) ]
+      remark #15388: vectorization support: reference Main[(N-1)/2+c3] has aligned access   [ OSP.c(182,9) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15329: vectorization support: indirect store was emulated for the variable <Main[(N-1)/2+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(182,9) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <C[(N-1)/2+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(182,9) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <Main[(N-1)/2+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(182,9) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.157
       remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 3 
+      remark #15450: unmasked unaligned unit stride loads: 3 
+      remark #15462: unmasked indexed (or gather) loads: 2 
+      remark #15463: unmasked indexed (or scatter) stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 48 
+      remark #15477: vector cost: 47.750 
+      remark #15478: estimated potential speedup: 1.000 
+      remark #15487: type converts: 2 
+      remark #15488: --- end vector cost summary ---
    LOOP END
 
    LOOP BEGIN at OSP.c(180,7)
@@ -84,10 +210,34 @@ LOOP BEGIN at OSP.c(186,5)
 
    LOOP BEGIN at OSP.c(189,7)
    <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
    LOOP END
 
    LOOP BEGIN at OSP.c(189,7)
+      remark #15388: vectorization support: reference Main[(N-1)/2+c3] has aligned access   [ OSP.c(191,9) ]
+      remark #15389: vectorization support: reference C[(N-1)/2+c3] has unaligned access   [ OSP.c(191,9) ]
+      remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(191,9) ]
+      remark #15389: vectorization support: reference M[(N-1)/2+c3-1] has unaligned access   [ OSP.c(191,9) ]
+      remark #15388: vectorization support: reference M[c3] has aligned access   [ OSP.c(191,9) ]
+      remark #15388: vectorization support: reference Main[(N-1)/2+c3] has aligned access   [ OSP.c(191,9) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15329: vectorization support: indirect store was emulated for the variable <Main[(N-1)/2+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(191,9) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <C[(N-1)/2+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(191,9) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <Main[(N-1)/2+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(191,9) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.157
       remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 3 
+      remark #15450: unmasked unaligned unit stride loads: 3 
+      remark #15462: unmasked indexed (or gather) loads: 2 
+      remark #15463: unmasked indexed (or scatter) stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 48 
+      remark #15477: vector cost: 47.750 
+      remark #15478: estimated potential speedup: 1.000 
+      remark #15487: type converts: 2 
+      remark #15488: --- end vector cost summary ---
    LOOP END
 
    LOOP BEGIN at OSP.c(189,7)
@@ -100,43 +250,122 @@ LOOP BEGIN at OSP.c(186,5)
 LOOP END
 
 LOOP BEGIN at OSP.c(197,3)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between Main[1][c1+1] (199:5) and Main[c1+N][N] (223:5)
+   remark #15346: vector dependence: assumed ANTI dependence between Main[c1+N][N] (223:5) and Main[1][c1+1] (199:5)
 
    LOOP BEGIN at OSP.c(200,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed OUTPUT dependence between Main[c1+c3][c3] (204:9) and Main[c2+1][c1+c2+1] (206:7)
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[c2+1][c1+c2+1] (206:7) and Main[c1+c3][c3] (204:9)
 
       LOOP BEGIN at OSP.c(202,7)
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(204,9) ]
+         remark #15389: vectorization support: reference C[c1+c3] has unaligned access   [ OSP.c(204,9) ]
+         remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(204,9) ]
+         remark #15389: vectorization support: reference M[c1+c3-1] has unaligned access   [ OSP.c(204,9) ]
+         remark #15389: vectorization support: reference M[c3] has unaligned access   [ OSP.c(204,9) ]
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(204,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(204,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[c1+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(204,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(204,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.164
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 21 
+         remark #15477: vector cost: 58.000 
+         remark #15478: estimated potential speedup: 0.360 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(208,5)
    <Distributed chunk1>
       remark #25426: Loop Distributed (2 way) 
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[c1+c3][c3] (212:9) and Main[c1+c3][c3] (212:9)
       remark #15346: vector dependence: assumed OUTPUT dependence between Main[c1+c3][c3] (212:9) and Main[c1+c3][c3] (212:9)
 
       LOOP BEGIN at OSP.c(210,7)
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(212,9) ]
+         remark #15389: vectorization support: reference C[c1+c3] has unaligned access   [ OSP.c(212,9) ]
+         remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(212,9) ]
+         remark #15389: vectorization support: reference M[c1+c3-1] has unaligned access   [ OSP.c(212,9) ]
+         remark #15389: vectorization support: reference M[c3] has unaligned access   [ OSP.c(212,9) ]
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(212,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[c1+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(212,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.164
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 21 
+         remark #15477: vector cost: 58.000 
+         remark #15478: estimated potential speedup: 0.360 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(208,5)
    <Distributed chunk2>
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 2
+      remark #15309: vectorization support: normalized vectorization overhead 3.100
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 1 
+      remark #15477: vector cost: 1.250 
+      remark #15478: estimated potential speedup: 0.740 
+      remark #15488: --- end vector cost summary ---
       remark #25439: unrolled with remainder by 8  
       remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
       remark #25457: Number of partial sums replaced: 1
    LOOP END
 
    LOOP BEGIN at OSP.c(215,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between C[c1+c2][c2] (217:7) and C[c1+c3][c2] (220:9)
+      remark #15346: vector dependence: assumed ANTI dependence between C[c1+c3][c2] (220:9) and C[c1+c2][c2] (217:7)
 
       LOOP BEGIN at OSP.c(218,7)
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(220,9) ]
+         remark #15389: vectorization support: reference C[c1+c3] has unaligned access   [ OSP.c(220,9) ]
+         remark #15389: vectorization support: reference C[c2+1][c3] has unaligned access   [ OSP.c(220,9) ]
+         remark #15389: vectorization support: reference M[c1+c3-1] has unaligned access   [ OSP.c(220,9) ]
+         remark #15389: vectorization support: reference M[c3] has unaligned access   [ OSP.c(220,9) ]
+         remark #15389: vectorization support: reference Main[c1+c3] has unaligned access   [ OSP.c(220,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(220,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[c1+c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(220,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[c1+c3][c3]>, 64-bit indexed, part of address is read from memory   [ OSP.c(220,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.164
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 21 
+         remark #15477: vector cost: 58.000 
+         remark #15478: estimated potential speedup: 0.360 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
@@ -148,10 +377,27 @@ LOOP END
 
 LOOP BEGIN at OSP.c(226,3)
 <Peeled loop for vectorization>
+   remark #25015: Estimate of max trip count of loop=3
 LOOP END
 
 LOOP BEGIN at OSP.c(226,3)
+   remark #15389: vectorization support: reference C[N-1+N][c2] has unaligned access   [ OSP.c(228,5) ]
+   remark #15388: vectorization support: reference C[c2+1] has aligned access   [ OSP.c(228,5) ]
+   remark #15388: vectorization support: reference M[c2] has aligned access   [ OSP.c(228,5) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15328: vectorization support: indirect load was emulated for the variable <C[c2+1][N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(228,5) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.753
    remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15462: unmasked indexed (or gather) loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 19 
+   remark #15477: vector cost: 18.250 
+   remark #15478: estimated potential speedup: 1.030 
+   remark #15488: --- end vector cost summary ---
 LOOP END
 
 LOOP BEGIN at OSP.c(226,3)

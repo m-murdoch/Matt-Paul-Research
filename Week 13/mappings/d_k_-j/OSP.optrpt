@@ -2,6 +2,9 @@ Intel(R) Advisor can now assist with vectorization and show optimization
   report messages with your source code.
 See "https://software.intel.com/en-us/intel-advisor-xe" for details.
 
+Intel(R) C Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 19.0.3.199 Build 20190206
+
+Compiler options: -I/usr/include/malloc/ -o OSP.o -O3 -std=c99 -qopt-report-phase=vec,loop -qopt-report=5 -lm -c
 
 Begin optimization report for: OSP(long, int *, int **)
 
@@ -9,7 +12,19 @@ Begin optimization report for: OSP(long, int *, int **)
 
 
 LOOP BEGIN at OSP.c(127,2)
+   remark #15389: vectorization support: reference Main[mz1] has unaligned access   [ OSP.c(128,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.070
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 7 
+   remark #15477: vector cost: 12.500 
+   remark #15478: estimated potential speedup: 0.560 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector cost summary ---
    remark #25439: unrolled with remainder by 8  
 LOOP END
 
@@ -19,7 +34,21 @@ LOOP BEGIN at OSP.c(127,2)
 LOOP END
 
 LOOP BEGIN at OSP.c(141,3)
+   remark #15389: vectorization support: reference C[c2] has unaligned access   [ OSP.c(143,5) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15329: vectorization support: indirect store was emulated for the variable <C[c2][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(143,5) ]
+   remark #15305: vectorization support: vector length 2
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.023
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15463: unmasked indexed (or scatter) stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 16.000 
+   remark #15478: estimated potential speedup: 0.180 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector cost summary ---
    remark #25439: unrolled with remainder by 2  
 LOOP END
 
@@ -28,95 +57,237 @@ LOOP BEGIN at OSP.c(141,3)
 LOOP END
 
 LOOP BEGIN at OSP.c(145,3)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between Main[1][c1+1] (147:5) and Main[c1+N][N] (173:5)
+   remark #15346: vector dependence: assumed ANTI dependence between Main[c1+N][N] (173:5) and Main[1][c1+1] (147:5)
 
    LOOP BEGIN at OSP.c(148,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed OUTPUT dependence between Main[c2+1][c1+c2+1] (150:7) and Main[N-c1-c3][c3+N] (153:9)
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[N-c1-c3][c3+N] (153:9) and Main[c2+1][c1+c2+1] (150:7)
 
       LOOP BEGIN at OSP.c(151,7)
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(153,9) ]
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(153,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[N-c1-c3]>, stride is -1   [ OSP.c(153,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[N-c1-c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(153,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[c2+1][c3+N]>, stride is -1   [ OSP.c(153,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c1-c3+N-1]>, stride is -1   [ OSP.c(153,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c3+N]>, stride is -1   [ OSP.c(153,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(153,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(153,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.043
+         remark #15452: unmasked strided loads: 6 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 58 
+         remark #15477: vector cost: 92.000 
+         remark #15478: estimated potential speedup: 0.630 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(156,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed OUTPUT dependence between Main[c2+1][c1+c2+1] (158:7) and Main[N-c1-c3][c3+N] (161:9)
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[N-c1-c3][c3+N] (161:9) and Main[c2+1][c1+c2+1] (158:7)
 
       LOOP BEGIN at OSP.c(159,7)
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(161,9) ]
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[N-c1-c3]>, stride is -1   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[N-c1-c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[c2+1][c3+N]>, stride is -1   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c1-c3+N-1]>, stride is -1   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c3+N]>, stride is -1   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(161,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(161,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.043
+         remark #15452: unmasked strided loads: 6 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 58 
+         remark #15477: vector cost: 92.000 
+         remark #15478: estimated potential speedup: 0.630 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(165,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed ANTI dependence between C[N-c1-c3][c2] (169:9) and C[c1+c2][c2] (171:7)
+      remark #15346: vector dependence: assumed FLOW dependence between C[c1+c2][c2] (171:7) and C[N-c1-c3][c2] (169:9)
 
       LOOP BEGIN at OSP.c(167,7)
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(169,9) ]
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(169,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[N-c1-c3]>, stride is -1   [ OSP.c(169,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[N-c1-c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(169,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[c2+1][c3+N]>, stride is -1   [ OSP.c(169,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c1-c3+N-1]>, stride is -1   [ OSP.c(169,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c3+N]>, stride is -1   [ OSP.c(169,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(169,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(169,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.043
+         remark #15452: unmasked strided loads: 6 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 58 
+         remark #15477: vector cost: 92.000 
+         remark #15478: estimated potential speedup: 0.630 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 LOOP END
 
 LOOP BEGIN at OSP.c(178,5)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed OUTPUT dependence between Main[c2+1][(N-1)/2+c2+1] (180:7) and Main[N-(N-1)/2-c3][c3+N] (183:9)
+   remark #15346: vector dependence: assumed OUTPUT dependence between Main[N-(N-1)/2-c3][c3+N] (183:9) and Main[c2+1][(N-1)/2+c2+1] (180:7)
 
    LOOP BEGIN at OSP.c(181,7)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between Main[N-(N-1)/2-c3][c3+N] (183:9) and Main[N-(N-1)/2-c3][c3+N] (183:9)
+      remark #15346: vector dependence: assumed ANTI dependence between Main[N-(N-1)/2-c3][c3+N] (183:9) and Main[N-(N-1)/2-c3][c3+N] (183:9)
    LOOP END
 LOOP END
 
 LOOP BEGIN at OSP.c(186,5)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed ANTI dependence between C[N-(N-1)/2-c3][c2] (190:9) and C[(N-1)/2+c2][c2] (192:7)
+   remark #15346: vector dependence: assumed FLOW dependence between C[(N-1)/2+c2][c2] (192:7) and C[N-(N-1)/2-c3][c2] (190:9)
 
    LOOP BEGIN at OSP.c(188,7)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed FLOW dependence between Main[N-(N-1)/2-c3][c3+N] (190:9) and Main[N-(N-1)/2-c3][c3+N] (190:9)
+      remark #15346: vector dependence: assumed ANTI dependence between Main[N-(N-1)/2-c3][c3+N] (190:9) and Main[N-(N-1)/2-c3][c3+N] (190:9)
    LOOP END
 LOOP END
 
 LOOP BEGIN at OSP.c(197,3)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between Main[1][c1+1] (199:5) and Main[c1+N][N] (223:5)
+   remark #15346: vector dependence: assumed ANTI dependence between Main[c1+N][N] (223:5) and Main[1][c1+1] (199:5)
 
    LOOP BEGIN at OSP.c(200,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed OUTPUT dependence between Main[c2+1][c1+c2+1] (202:7) and Main[N-c1-c3][c3+N] (205:9)
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[N-c1-c3][c3+N] (205:9) and Main[c2+1][c1+c2+1] (202:7)
 
       LOOP BEGIN at OSP.c(203,7)
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(205,9) ]
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(205,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[N-c1-c3]>, stride is -1   [ OSP.c(205,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[N-c1-c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(205,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[c2+1][c3+N]>, stride is -1   [ OSP.c(205,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c1-c3+N-1]>, stride is -1   [ OSP.c(205,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c3+N]>, stride is -1   [ OSP.c(205,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(205,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(205,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.043
+         remark #15452: unmasked strided loads: 6 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 58 
+         remark #15477: vector cost: 92.000 
+         remark #15478: estimated potential speedup: 0.630 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(208,5)
    <Distributed chunk1>
       remark #25426: Loop Distributed (2 way) 
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between Main[N-c1-c3][c3+N] (212:9) and Main[N-c1-c3][c3+N] (212:9)
       remark #15346: vector dependence: assumed OUTPUT dependence between Main[N-c1-c3][c3+N] (212:9) and Main[N-c1-c3][c3+N] (212:9)
 
       LOOP BEGIN at OSP.c(210,7)
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(212,9) ]
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[N-c1-c3]>, stride is -1   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[N-c1-c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[c2+1][c3+N]>, stride is -1   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c1-c3+N-1]>, stride is -1   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c3+N]>, stride is -1   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(212,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(212,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.043
+         remark #15452: unmasked strided loads: 6 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 58 
+         remark #15477: vector cost: 92.000 
+         remark #15478: estimated potential speedup: 0.630 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
    LOOP BEGIN at OSP.c(208,5)
    <Distributed chunk2>
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 2
+      remark #15309: vectorization support: normalized vectorization overhead 3.100
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 1 
+      remark #15477: vector cost: 1.250 
+      remark #15478: estimated potential speedup: 0.740 
+      remark #15488: --- end vector cost summary ---
       remark #25439: unrolled with remainder by 8  
       remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
       remark #25457: Number of partial sums replaced: 1
    LOOP END
 
    LOOP BEGIN at OSP.c(215,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
       remark #15346: vector dependence: assumed ANTI dependence between C[N-c1-c3][c2] (219:9) and C[c1+c2][c2] (221:7)
+      remark #15346: vector dependence: assumed FLOW dependence between C[c1+c2][c2] (221:7) and C[N-c1-c3][c2] (219:9)
 
       LOOP BEGIN at OSP.c(217,7)
          remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(219,9) ]
+         remark #15329: vectorization support: indirect store was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(219,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[N-c1-c3]>, stride is -1   [ OSP.c(219,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <C[N-c1-c3][c2]>, 64-bit indexed, part of address is read from memory   [ OSP.c(219,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <C[c2+1][c3+N]>, stride is -1   [ OSP.c(219,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c1-c3+N-1]>, stride is -1   [ OSP.c(219,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <M[c3+N]>, stride is -1   [ OSP.c(219,9) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <Main[N-c1-c3]>, stride is -1   [ OSP.c(219,9) ]
+         remark #15328: vectorization support: indirect load was emulated for the variable <Main[N-c1-c3][c3+N]>, 64-bit indexed, part of address is read from memory   [ OSP.c(219,9) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.043
+         remark #15452: unmasked strided loads: 6 
+         remark #15462: unmasked indexed (or gather) loads: 2 
+         remark #15463: unmasked indexed (or scatter) stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 58 
+         remark #15477: vector cost: 92.000 
+         remark #15478: estimated potential speedup: 0.630 
+         remark #15487: type converts: 2 
+         remark #15488: --- end vector cost summary ---
       LOOP END
    LOOP END
 
@@ -127,8 +298,9 @@ LOOP BEGIN at OSP.c(197,3)
 LOOP END
 
 LOOP BEGIN at OSP.c(226,3)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
    remark #15346: vector dependence: assumed FLOW dependence between *(*(Main+8)+N*4) (228:5) and *(*(Main+8)+N*4) (228:5)
+   remark #15346: vector dependence: assumed ANTI dependence between *(*(Main+8)+N*4) (228:5) and *(*(Main+8)+N*4) (228:5)
    remark #25439: unrolled with remainder by 4  
 LOOP END
 
