@@ -1,4 +1,4 @@
- Mapping   |  Average GigaFlops/sec
+ Mapping   |  Average GigaFlops/sec (Average of all problem sizes 1000-5000)
  
 [['d_-k_j'  '0.2437067438423887']
  ['d_-k_-j' '0.24476322513371127']
