@@ -6,3 +6,12 @@ The 4th argument constitutes which dimensions should be parallelized.
 
 Valid 4th arguments that generate code successfully are:
 "0,1,2", "0,1", "1,2", "0,2" (same as 0,1,2), "2" (same as 1,2), "1", "0".
+
+In order to use the pragmas, the makefile must be remade as the setParallel()
+call changes how the executable will be made.
+
+Can set number of threads in the program or before running in the terminal.
+
+See if the number of threads is set in the program.
+
+Need to use icc, so find out how to make icc recognize OpenMP.
