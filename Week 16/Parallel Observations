@@ -1,0 +1,8 @@
+The syntax 
+setParallel(prog, system, "", "0,1,2");
+was used where the numbes in the 4th argument may varry. 
+The 4th argument constitutes which dimensions should be parallelized. 
+
+
+Valid 4th arguments that generate code successfully are:
+"0,1,2", "0,1", "1,2", "0,2" (same as 0,1,2), "2" (same as 1,2), "1", "0".
