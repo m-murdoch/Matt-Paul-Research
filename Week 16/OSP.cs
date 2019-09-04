@@ -137,8 +137,13 @@ generateScheduledCode(prog, system, outDir+"/d_j_k_p");
 
 ##################### Memory Consolidation #####################
 
+
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,j-k,j-i)", "(i,j->j,0,j-i)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i+1,j-i)");
+#setParallel(prog, system, "", "2");
 #setMemorySpace(prog, system, "C", "C, Main");
-#generateScheduledCode(prog, system, outDir+"/memSpace"); # Default maping, (i,j -> i,j), does NOT work.
+#setMemoryMap(prog, system, "C", x) #store in address mapping (memory layout)
+#generateScheduledCode(prog, system, outDir+"/memSpace"); 
 
 #AShow(prog, system);
 
