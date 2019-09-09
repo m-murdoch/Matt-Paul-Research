@@ -1,5 +1,5 @@
 This is a list of theoretical parallel mappings
 This list is incomplete/ in progress
 
-d,j,k - innermost and middle (Tested for innermost)
--i,k,-j - innermost
+d,j,k - innermost and middle (Passed for innermost)
+-i,k,-j - innermost (Passed)
