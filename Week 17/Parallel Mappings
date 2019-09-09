@@ -1,4 +1,6 @@
-This is a list of theoretical parallel mappings
+This is a list of theoretical parallel mappings - taking the implementation produced as is despite
+it not matching what I thouht it would do from the loop depth argument.
+
 This list is incomplete/ in progress
 
 d,j,k - innermost and middle (Passed for both)
