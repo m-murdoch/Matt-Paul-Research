@@ -1,9 +1,28 @@
 This is a list of theoretical parallel mappings - taking the implementation produced as is despite
 it not matching what I thouht it would do from the loop depth argument.
 
-This list is incomplete/ in progress
+This list is incomplete/ in progress:
 
-d,j,k - innermost and middle (Passed for both)
-d,j,-k - innermost and middle
--i,k,-j - innermost (Passed)
--i,k,j - innermost (Should work but does not pass - seems parallelized incorrectly)
+d_-k_j: 
+d_-k_-j: 
+j_-k_-i: 
+j_-k_d: 
+j_-k_i: 
+d_k_-j: 
+d_k_j: 
+d_-j_-k: 
+d_j_-k: innermost and middle
+-i_j_-k: 
+-i_j: 
+d_j: 
+d_-j: 
+d_j_k: innermost and middle (Passed for both)
+j_-i:  
+j_d_-k: 
+j_-i_-k: 
+d_-j_k: 
+-i_j_k: 
+j_d_k:
+j_-i_k: 
+-i_k_-j: innermost (Passed)
+-i_k_j: innermost (Should work but does not pass - seems parallelized incorrectly)
