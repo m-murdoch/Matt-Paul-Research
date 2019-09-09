@@ -7,9 +7,9 @@ Mapping : Loops that can be parallelized
 
 d_-k_j: innermost and middle
 d_-k_-j: innermost and middle
-j_-k_-i: 
+j_-k_-i: innermost
 j_-k_d: 
-j_-k_i: 
+j_-k_i: innermost
 d_k_-j: innermost and middle
 d_k_j: innermost and middle
 d_-j_-k: innermost and middle
@@ -19,12 +19,12 @@ d_j_-k: innermost and middle
 d_j: innermost and middle
 d_-j: innermost and middle
 d_j_k: innermost and middle (Passed for both)
-j_-i:  
+j_-i: innermost 
 j_d_-k: 
-j_-i_-k: 
+j_-i_-k: innermost
 d_-j_k: innermost and middle
 -i_j_k: innermost
 j_d_k:
-j_-i_k: 
+j_-i_k: innermost
 -i_k_-j: innermost (Passed)
 -i_k_j: innermost (Should work but does not pass - seems parallelized incorrectly)
