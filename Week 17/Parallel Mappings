@@ -4,5 +4,6 @@ it not matching what I thouht it would do from the loop depth argument.
 This list is incomplete/ in progress
 
 d,j,k - innermost and middle (Passed for both)
+d,j,-k - innermost and middle
 -i,k,-j - innermost (Passed)
 -i,k,j - innermost (Should work but does not pass - seems parallelized incorrectly)
