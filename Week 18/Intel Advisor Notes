@@ -1,0 +1,46 @@
+Accessing the Intel Advisor Toolkit:
+
+1). The following command lines are required to update various paths:
+
+export PATH=$PATH:/s/chopin/e/proj/PARRIC-REU/intel/bin
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/s/parsons/l/sys/intel_2018/mkl/lib/intel64:/s/parsons/l/sys/intel_2018/lib/intel64:
+
+export INTEL_LICENSE_FILE=/s/chopin/e/proj/PARRIC-REU/intel/compilers_and_libraries_2019.0.117/linux/Licenses/NCOM_L___S4ZD-V2FJKCCS.lic
+
+2.) The application is located in (UPDATED 9/13/19) 
+	Louis Narmour fixed internal error problems by completely reinstalling Intel Advisor
+
+	/s/chopin/e/proj/PARRIC-REU/intel/advisor_2019.0.0.570901/bin64  (old)
+	/s/chopin/e/proj/PARRIC-REU/new-advisor/advisor/bin64  (new)
+
+If access is denied, email sna@cs.colostate.edu asking to have your username, as you would ssh with, added to the parric group. 
+Explain that it is for research with Sanjay and cc Sanjay’s email. 
+
+3) Run 
+
+./advixe-gui 
+
+to launch the application.
+
+
+
+Notes for Use:
+
+1.)	Create a new project and check it will be saved where you want it.
+  a.	Skip to “Create”
+  
+2.)	A binary file is required – browse to the executable file you want to test and select it (for out case, the “OSP” executable). 
+
+3.)	Application Parameters are required command line arguments (for our case, the variable N is required – for instance 1000).
+
+4.)	(UPDATED) First run survey, then Trip Counts and FLOPS with both options selected, then roofline. 
+  	Many points are displayed - green, yellow, and red in the order of importance and time consumed from least to greatest,
+  	and increasing size also for importance and time consumed.
+  
+5.)	Observe the “Summary”
+
+6.)	Click “Survey” in a bar on the left to observe more. 
+
+7.)	Manual compilation with the “-g” flag adds more information to the “survey” and “summary” such as what specific 
+  	segments of code link to each dot displayed. 
