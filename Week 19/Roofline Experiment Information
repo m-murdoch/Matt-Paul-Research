@@ -1,0 +1,15 @@
+The -xCORE-AVX2 flag was used to promote the use of AVX2 instruction set architecture. 
+
+OSP_seq.c = OSP.c with pragmas commented out and compiled without the -fopenmp flag.
+
+Executable used: OSP.timing-rand or OSP.timing-rand-seq
+(see makefile)
+
+Input size used: 5000
+
+Platform Information:
+CPU Name: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+Frequency: 3.40 GHz
+Logical CPU Count: 8
+Operating System: Linux
+Computer Name: berlin
