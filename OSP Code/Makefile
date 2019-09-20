@@ -1,73 +1,47 @@
-CFLAGS=  -O3  -std=c99  -I/usr/include/malloc/ 
+CFLAGS= -fopenmp  -O3  -std=gnu11  -I/usr/include/malloc/ 
 LIBRARIES=-lm
 CC=/s/parsons/l/sys/intel/bin/icc
 LD=xild
 AR=xiar
 OBJS = OSP.o 
-all: plain check
+OBJS_seq = OSP_seq.o
+all: plain check timing-rand timing-rand-seq verify-rand verify-rand-seq
 
-debug: CFLAGS =-DDEBUG -g -Wall -Wextra -std=c99 -I/usr/include/malloc/
+debug: CFLAGS =-DDEBUG -g -xCORE-AVX2 -Wall -Wextra -std=gnu11 -I/usr/include/malloc/
 debug: all
-
-new-map: clean
-	rm -f OSP.c
-
-# Creates just OSP, takes no input and produces no output
+		
 plain: $(OBJS)
-	$(CC) OSP-wrapper.c -o OSP $(OBJS) $(CFLAGS) $(LIBRARIES)
-	
-# Same as plain but writes time to a file
-timing: $(OBJS)
-	$(CC) OSP-wrapper.c -o OSP.timing $(OBJS) $(CFLAGS) $(LIBRARIES) -DTIMING
+	$(CC) OSP-wrapper.c -o OSP $(OBJS) $(CFLAGS) -fopenmp $(LIBRARIES)
 
-# Inputs random values doesn't show output
-rand: $(OBJS)
-	$(CC) OSP-wrapper.c -o OSP.rand $(OBJS) $(CFLAGS) $(LIBRARIES) -DRANDOM
-
-# Takes random inputs, writes time to file
 timing-rand: $(OBJS)
-	$(CC) OSP-wrapper.c -o OSP.timing-rand $(OBJS) $(CFLAGS) $(LIBRARIES) -DTIMING -DRANDOM 
+	$(CC) OSP-wrapper.c -o OSP.timing-rand $(OBJS) $(CFLAGS) -fopenmp $(LIBRARIES) -DTIMING -DRANDOM 
 
-# Takes user input, shows output
+timing-rand-seq: $(OBJS_seq)
+	$(CC) OSP-wrapper.c -o OSP.timing-rand-seq $(OBJS_seq) $(CFLAGS) $(LIBRARIES) -DTIMING -DRANDOM 
+
 check: $(OBJS)
-	$(CC) OSP-wrapper.c -o OSP.check $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING
+	$(CC) OSP-wrapper.c -o OSP.check $(OBJS) $(CFLAGS) -fopenmp $(LIBRARIES) -DCHECKING
 
-# Takes random input, shows output
-check-rand: $(OBJS)
-	$(CC)  OSP-wrapper.c -o OSP.check-rand $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING -DRANDOM
-
-# No prompt on inputs, shows output
-no_prompt: $(OBJS)
-	$(CC)  OSP-wrapper.c -o OSP.no_prompt $(OBJS) $(CFLAGS) $(LIBRARIES) -DCHECKING -DNO_PROMPT 
-
-# Compares output to that of OSP_verify.c, takes input/shows output
 verify: $(OBJS) OSP_verify.o
-	$(CC) OSP-wrapper.c -o OSP.verify $(OBJS) OSP_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY
+	$(CC) OSP-wrapper.c -o OSP.verify $(OBJS) OSP_verify.o $(CFLAGS) -fopenmp $(LIBRARIES) -DVERIFY
 
-# Same as verify but takes random values
 verify-rand: $(OBJS) OSP_verify.o
-	$(CC) OSP-wrapper.c -o OSP.verify-rand $(OBJS) OSP_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY -DRANDOM
+	$(CC) OSP-wrapper.c -o OSP.verify-rand $(OBJS) OSP_verify.o $(CFLAGS) -fopenmp $(LIBRARIES) -DVERIFY -DRANDOM
 
-# Same as verify but writes both times to files
-verify-timing: $(OBJS) OSP_verify.o
-	$(CC)  OSP-wrapper.c -o OSP.verify-timing $(OBJS) OSP_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY -DTIMING
+verify-rand-seq: $(OBJS_seq) OSP_verify_seq.o
+	$(CC) OSP-wrapper.c -o OSP.verify-rand-seq $(OBJS_seq) OSP_verify_seq.o $(CFLAGS) $(LIBRARIES) -DVERIFY -DRANDOM
 
-# Combination of verify-rand and verify-timing
-verify-rand-timing: $(OBJS) OSP_verify.o
-	$(CC)  OSP-wrapper.c -o OSP.verify-rand-timing $(OBJS) OSP_verify.o $(CFLAGS) $(LIBRARIES) -DVERIFY -DTIMING -DRANDOM
-	
-# Unimplemented
-papi: $(OBJS)
-	$(CC)  OSP-wrapper.c -o OSP $(OBJS) $(CFLAGS) $(LIBRARIES) -DPAPI
-
-# Used in most options, requires OSP.c
 OSP.o : OSP.c
-	$(CC) OSP.c -o OSP.o $(CFLAGS) $(LIBRARIES) -c
+	$(CC) OSP.c -o OSP.o $(CFLAGS) -fopenmp $(LIBRARIES) -c
 
-# Used in verify options, requires OSP_verify.c
+OSP_seq.o : OSP_seq.c
+	$(CC) OSP_seq.c -o OSP_seq.o $(CFLAGS) $(LIBRARIES) -c
+
 OSP_verify.o : OSP_verify.c
-	$(CC) OSP_verify.c -o OSP_verify.o $(CFLAGS) $(LIBRARIES) -c
+	$(CC) OSP_verify.c -o OSP_verify.o $(CFLAGS) -fopenmp $(LIBRARIES) -c
 
-# Cleans files made by this makefile
+OSP_verify_seq.o : OSP_verify.c
+	$(CC) OSP_verify.c -o OSP_verify_seq.o $(CFLAGS) $(LIBRARIES) -c
+
 clean:
-	rm -f *.o OSP OSP.timing OSP.rand OSP.timing-rand OSP.check OSP.check-rand OSP.no_prompt OSP.verify OSP.verify-rand OSP.verify-timing OSP.verify-rand-timing
+	rm -f *.o OSP OSP.check OSP.verify OSP.verify-rand OSP.verify-rand-seq OSP.timing-rand OSP.timing-rand-seq
