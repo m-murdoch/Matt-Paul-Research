@@ -6,6 +6,7 @@ CheckProgram(prog);
 AShow(prog, system);
 
 ######## The 4 original 2D mappings ########
+# export LD_LIBRARY_PATH=/s/parsons/l/sys/intel/compilers_and_libraries/linux/lib/intel64
 
 # d,j
 #setSpaceTimeMap(prog, system, "C", "(i,j->j-i,j)");
@@ -20,15 +21,8 @@ AShow(prog, system);
 #generateScheduledCode(prog, system, outDir+"/j_-i");
 
 # -i,j
-setSpaceTimeMap(prog, system, "C", "(i,j->N-i,j)");
-generateScheduledCode(prog, system, outDir+"/-i_j");
-
-## Space time maps that "permute the k dimension"
-
-## Now for the  time maps that "permute the k dimension"
-## For this we first do some preprocessing that "isolates"
-## the reduction expression.  It introduces a new variable
-## and remanes it to Main
+#setSpaceTimeMap(prog, system, "C", "(i,j->N-i,j)");
+#generateScheduledCode(prog, system, outDir+"/-i_j");
 
 NormalizeReduction(prog, system, "C");
 RenameVariable(prog, system, "NR_C", "Main");
@@ -48,14 +42,22 @@ CheckProgram(prog);
 #generateScheduledCode(prog, system, outDir+"/-i_j_-k");
 
 # -i,k,j
-#setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,k,j)", "(i,j->N-i,i-1,j)");
-#setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j,j)");
-#generateScheduledCode(prog, system, outDir+"/-i_k_j");
+setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,k,j)", "(i,j->N-i,i-1,j)");
+setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j,j)");
+setParallel(prog, system, "", "2");
+setStatementOrdering(prog, system, "Main", "C");
+setMemorySpace(prog, system, "C", "C, Main"); (not used)
+generateScheduledCode(prog, system, outDir+"/-i_k_j_p");
+generateWrapper(prog, system, outDir+"/-i_k_j_p");
 
 # -i,k,-j
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,k,N-j)", "(i,j->N-i,i-1,N-j)");
 #setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j-1,j+N)");
-#generateScheduledCode(prog, system, outDir+"/-i_k_-j");
+#setParallel(prog, system, "", "2");
+#setStatementOrdering(prog, system, "Main", "C");
+#setMemorySpace(prog, system, "C", "C, Main"); (not used)
+#generateScheduledCode(prog, system, outDir+"/-i_k_-j_p");
+#generateWrapper(prog, system, outDir+"/-i_k_-j_p");
 
 # j,-i,k
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->j,N-i,k)", "(i,j->j,N-i,i-1)");
@@ -77,10 +79,23 @@ CheckProgram(prog);
 #setSpaceTimeMap(prog, system, "C",    "(i,j->j,j-i+1,N-i)");
 #generateScheduledCode(prog, system, outDir+"/j_-k_-i");
 
-# d,j,k
+# d,j,k (inner parallel)
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j,k)", "(i,j->j-i,j,i-1)");
 #setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,j,j)");
-#generateScheduledCode(prog, system, outDir+"/d_j_k");
+#setParallel(prog, system, "", "2");
+#setStatementOrdering(prog, system, "Main", "C");
+#generateScheduledCode(prog, system, outDir+"/d_j_k_p");
+#generateWrapper(prog, system, outDir+"/d_j_k_p");
+#generateMakefile(prog, system, outDir+"/d_j_k_p");
+
+# d,j,k (mid parallel)
+#setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j,k)", "(i,j->j-i,j,i-1)");
+#setSpaceTimeMap(prog, system, "C",    "(i,j->j-i,j,j)");
+#setParallel(prog, system, "", "1");
+#setStatementOrdering(prog, system, "Main", "C");
+#generateScheduledCode(prog, system, outDir+"/d_j_k_p1");
+#generateWrapper(prog, system, outDir+"/d_j_k_p1");
+#generateMakefile(prog, system, outDir+"/d_j_k_p1");
 
 # d,j,-k
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->j-i,j,j-k)", "(i,j->j-i,j,0)");
