@@ -46,9 +46,9 @@ setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,k,j)", "(i,j->N-i,i-1,j)");
 setSpaceTimeMap(prog, system, "C",    "(i,j->N-i,j,j)");
 setParallel(prog, system, "", "2");
 setStatementOrdering(prog, system, "Main", "C");
-setMemorySpace(prog, system, "C", "C, Main"); (not used)
+//setMemorySpace(prog, system, "C", "C, Main"); (not used)
 generateScheduledCode(prog, system, outDir+"/-i_k_j_p");
-generateWrapper(prog, system, outDir+"/-i_k_j_p");
+//generateWrapper(prog, system, outDir+"/-i_k_j_p");
 
 # -i,k,-j
 #setSpaceTimeMap(prog, system, "Main", "(i,j,k->N-i,k,N-j)", "(i,j->N-i,i-1,N-j)");
