@@ -2,4 +2,4 @@ Discuess makefile
 
 Discuss Roofline 
   Arithmetic Intensity (data type? - I see chars in malloc but then function call takes longs and ints)
-  , Machine control, discussion with sys admin
+  , Machine control, discussion with sys admin, why no avx2 use when avx2 flag used?
