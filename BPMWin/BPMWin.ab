@@ -1,0 +1,12 @@
+affine BPMWin {N,M, W| N>=3 && M>=3 && (N,M) > W >= 3 }
+input
+int Diag {i, j, k| N>=i>=0 && M>=(j,k)>=0 && W >= k-j >= 0 } ;
+output
+int X {i1, j1, i2, j2| W >= j1-i1 >=0 && N>=j1 && i1>=0 &&  W >= j2-i2 >=0 && M >= j2 && i2 >=0} ;
+let
+	X [i1,j1,i2,j2] = case
+	{ | j1==i1 } : Diag[i1,i2,j2];
+	{ | j1>i1 && j2==i2} : 0;
+	{ | j1>i1} : reduce (max, [k1,k2], X[i1,k1,i2,k2] + X[k1+1,j1,k2+1,j2]);
+	esac;
+.
