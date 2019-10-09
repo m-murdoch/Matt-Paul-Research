@@ -1,4 +1,5 @@
 Discuess makefile
 
 Discuss Roofline 
-  Arithmetic Intensity, Machine control, discussion with sys admin
+  Arithmetic Intensity (data type? - I see chars in malloc but then function call takes longs and ints)
+  , Machine control, discussion with sys admin
